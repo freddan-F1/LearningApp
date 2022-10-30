@@ -13,17 +13,23 @@ struct HomeView: View {
     
     var body: some View {
     
-        ScrollView {
-            LazyVStack {
-                ForEach(model.modules) { model in
+        NavigationView {
+            VStack(alignment: .leading) {
+                Text("What do you want to do today?").padding()
+                ScrollView {
+                    LazyVStack {
+                        ForEach(model.modules) { model in
+                            
+                            RowHomeView(image: model.content.image, title: "Learn " + model.category, description: model.content.description, count: "\(model.content.lessons.count) lessons", time: model.content.time)
+                            
+                            RowHomeView(image: model.test.image, title: model.category + " Test", description: model.test.description, count: "\(model.test.questions.count) questions", time: model.test.time)
+                        }
+                    }
                     
-                    RowHomeView(image: model.content.image, title: "Learn " + model.category, description: model.content.description, count: "\(model.content.lessons.count) lessons", time: model.content.time)
                     
-                    RowHomeView(image: model.test.image, title: model.category + " Test", description: model.test.description, count: "\(model.test.questions.count) questions", time: model.test.time)
                 }
             }
-            
-            
+            .navigationTitle("Get started")
         }
         
         
