@@ -1,6 +1,6 @@
 //
-//  LearingAppApp.swift
-//  LearingApp
+//  LearningApp.swift
+//  LearningApp
 //
 //  Created by Fredrik Nilsson on 2022-10-30.
 //
@@ -8,10 +8,11 @@
 import SwiftUI
 
 @main
-struct LearingAppApp: App {
+struct LearningApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
+                .environmentObject(ContentModel())
         }
     }
 }
