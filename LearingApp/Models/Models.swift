@@ -7,45 +7,45 @@
 
 import Foundation
 
-struct Module: Decodable, Identifiable {
+struct LearningModule: Decodable, Identifiable {
  
-    var id:Int
-    var category:String
-    var content:Content
-    var test:Test
+    var id: Int
+    var category: String
+    var content: ModuleContent
+    var test: ModuleTest
 }
 
-struct Content:Decodable, Identifiable {
+struct ModuleContent: Decodable, Identifiable {
     
-    var id:Int
-    var image:String
-    var time:String
-    var description:String
-    var lessons:[Lesson]
+    var id: Int
+    var image: String
+    var time: String
+    var description: String
+    var lessons: [ContentLesson]
 }
 
-struct Lesson:Decodable, Identifiable {
+struct ContentLesson: Decodable, Identifiable {
     
-    var id:Int
-    var title:String
-    var video:String
-    var duration:String
-    var explanation:String
+    var id: Int
+    var title: String
+    var video: String
+    var duration: String
+    var explanation: String
 }
 
-struct Test:Decodable, Identifiable {
+struct ModuleTest: Decodable, Identifiable {
     
-    var id:Int
-    var image:String
-    var time:String
-    var descripition:String
-    var questions:[Question]
+    var id: Int
+    var image: String
+    var time: String
+    var description: String
+    var questions: [TestQuestion]
 }
 
-struct Question:Decodable, Identifiable {
+struct TestQuestion: Decodable, Identifiable {
     
-    var id:Int
-    var content:String
-    var correctIndex:Int
-    var answers:[String]
+    var id: Int
+    var content: String
+    var correctIndex: Int
+    var answers: [String]
 }
