@@ -17,6 +17,9 @@ class LearningModel: ObservableObject {
     @Published var currentModule:LearningModule?
     var currentModuleIndex = 0
     
+    @Published var currentLesson:ContentLesson?
+    var currentLessonIndex = 0
+    
     init() {
         getLocalData()
         
@@ -62,7 +65,32 @@ class LearningModel: ObservableObject {
         }
         currentModule = modules[currentModuleIndex]
     }
+
+    func setCurrentLesson(lessonId:Int) {
+        
+        //Check if lesson with lessonId exists
+        if lessonId < currentModule!.content.lessons.count {
+            currentLessonIndex = lessonId
+        }
+        else {
+            currentLessonIndex = 0
+        }
+        currentLesson = currentModule!.content.lessons[currentLessonIndex]
+    }
     
+    func HasNextLesson() -> Bool {
+        return currentLessonIndex + 1 < currentModule!.content.lessons.count
+    }
     
+    func NextLesson() {
+        currentLessonIndex += 1
+        if currentLessonIndex < currentModule!.content.lessons.count {
+            currentLesson = currentModule!.content.lessons[currentLessonIndex]
+        }
+        else {
+            currentLessonIndex = 0
+            currentLesson = nil
+        }
+    }
 }
 
