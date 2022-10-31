@@ -1,5 +1,5 @@
 //
-//  ContentModel.swift
+//  LearningModel.swift
 //  LearingApp
 //
 //  Created by Fredrik Nilsson on 2022-10-30.
@@ -7,16 +7,22 @@
 
 import Foundation
 
-class ContentModel: ObservableObject {
+class LearningModel: ObservableObject {
     
+    //Data variables
     @Published var modules = [LearningModule]()
     var styleData:Data?
+    
+    //Navigation control variables
+    @Published var currentModule:LearningModule?
+    var currentModuleIndex = 0
     
     init() {
         getLocalData()
         
     }
     
+    //MARK: Data methods
     func getLocalData() {
         
         //get jsonUrl and jsonData
@@ -45,6 +51,18 @@ class ContentModel: ObservableObject {
             print("Couldn't pars style-data")
         }
     }
+    
+    //MARK: Navigation control methods
+    func setCurrentModule(moduleId:Int) {
+        for index in 0..<modules.count {
+            if modules[index].id == moduleId {
+                currentModuleIndex = index
+                break
+            }
+        }
+        currentModule = modules[currentModuleIndex]
+    }
+    
     
 }
 

@@ -20,7 +20,7 @@ struct RowHomeView: View {
         ZStack {
             Rectangle()
                 .foregroundColor(.white)
-                .aspectRatio(CGSize(width: 335, height: 175), contentMode: .fit)
+                .aspectRatio(CGSize(width: 355, height: 175), contentMode: .fit)
                 .cornerRadius(10)
                 .shadow(radius: 10)
             HStack(spacing: 10) {
@@ -37,8 +37,8 @@ struct RowHomeView: View {
                             .frame(width:15, height: 15)
                         Text(time)
                             .font(Font.system(size: 10))
-                    }.padding(.trailing)
-                }
+                    }
+                }.padding(.trailing,10)
                 
             }
         }.padding()

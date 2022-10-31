@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @EnvironmentObject var model:ContentModel
+    @EnvironmentObject var model:LearningModel
     
     var body: some View {
     
@@ -18,19 +18,30 @@ struct HomeView: View {
                 Text("What do you want to do today?").padding()
                 ScrollView {
                     LazyVStack {
-                        ForEach(model.modules) { model in
+                        ForEach(model.modules) { module in
                             
-                            RowHomeView(image: model.content.image, title: "Learn " + model.category, description: model.content.description, count: "\(model.content.lessons.count) lessons", time: model.content.time)
+                            NavigationLink(destination: {
+                                ContentView().onAppear(perform: {
+                                    model.setCurrentModule(moduleId: module.id)
+                                })
+                            },
+                            label: {
+                                
+                                RowHomeView(image: module.content.image, title: "Learn " + module.category, description: module.content.description, count: "\(module.content.lessons.count) lessons", time: module.content.time)
+                                
+                            })
                             
-                            RowHomeView(image: model.test.image, title: model.category + " Test", description: model.test.description, count: "\(model.test.questions.count) questions", time: model.test.time)
+                            
+                            RowHomeView(image: module.test.image, title: module.category + " Test", description: module.test.description, count: "\(module.test.questions.count) questions", time: module.test.time)
                         }
                     }
                     
                     
                 }
             }
-            .navigationTitle("Get started")
+            .navigationTitle("Get started").padding().padding(.bottom)
         }
+        .accentColor(.black)
         
         
         
@@ -39,6 +50,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView().environmentObject(ContentModel())
+        HomeView().environmentObject(LearningModel())
     }
 }
