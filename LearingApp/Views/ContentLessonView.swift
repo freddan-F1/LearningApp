@@ -18,11 +18,12 @@ struct ContentLessonView: View {
         
         let url = URL(string: Constants.videoUrl + (lesson?.video ?? ""))
         
-        
-        
         VStack {
             if lesson != nil {
                 VideoPlayer(player: AVPlayer(url: url!)).cornerRadius(10)
+                
+                //Description
+                CodeTextView()
             }
             
             if model.HasNextLesson() {
@@ -47,6 +48,7 @@ struct ContentLessonView: View {
             
             
         }.padding()
+            .navigationTitle(lesson?.title ?? "")
       
     }
 }

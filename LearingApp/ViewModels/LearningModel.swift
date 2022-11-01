@@ -12,6 +12,8 @@ class LearningModel: ObservableObject {
     //Data variables
     @Published var modules = [LearningModule]()
     var styleData:Data?
+    //Lesson details
+    @Published var lessonDescription = NSAttributedString()
     
     //Navigation control variables
     @Published var currentModule:LearningModule?
@@ -19,6 +21,9 @@ class LearningModel: ObservableObject {
     
     @Published var currentLesson:ContentLesson?
     var currentLessonIndex = 0
+    
+    
+    
     
     init() {
         getLocalData()
@@ -56,7 +61,7 @@ class LearningModel: ObservableObject {
     }
     
     //MARK: Navigation control methods
-    func setCurrentModule(moduleId:Int) {
+    func setCurrentModule( moduleId:Int) {
         for index in 0..<modules.count {
             if modules[index].id == moduleId {
                 currentModuleIndex = index
@@ -66,7 +71,7 @@ class LearningModel: ObservableObject {
         currentModule = modules[currentModuleIndex]
     }
 
-    func setCurrentLesson(lessonId:Int) {
+    func setCurrentLesson( lessonId:Int) {
         
         //Check if lesson with lessonId exists
         if lessonId < currentModule!.content.lessons.count {
@@ -76,6 +81,7 @@ class LearningModel: ObservableObject {
             currentLessonIndex = 0
         }
         currentLesson = currentModule!.content.lessons[currentLessonIndex]
+        lessonDescription = AddStyling(htmlString: currentLesson!.explanation)
     }
     
     func HasNextLesson() -> Bool {
@@ -85,12 +91,36 @@ class LearningModel: ObservableObject {
     func NextLesson() {
         currentLessonIndex += 1
         if currentLessonIndex < currentModule!.content.lessons.count {
+            
+            //Set the next lesson property
             currentLesson = currentModule!.content.lessons[currentLessonIndex]
+            lessonDescription = AddStyling(htmlString: currentLesson!.explanation)
         }
         else {
             currentLessonIndex = 0
             currentLesson = nil
         }
+    }
+    
+    //MARK: methods for making attributed string
+    func AddStyling(htmlString:String) -> NSAttributedString {
+        
+        var result = NSAttributedString()
+        var data = Data()
+        
+        //Add styledata
+        if styleData != nil {
+            data.append(self.styleData!)
+        }
+        //Add html string
+        data.append(Data(htmlString.utf8))
+        
+        //Convert to NSAttributed string
+        if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
+            
+            result = attributedString
+        }
+        return result
     }
 }
 
