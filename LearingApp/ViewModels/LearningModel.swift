@@ -10,6 +10,7 @@ import Foundation
 class LearningModel: ObservableObject {
     
     //Data variables
+    //Main model
     @Published var modules = [LearningModule]()
     var styleData:Data?
     //Lesson details
@@ -22,6 +23,8 @@ class LearningModel: ObservableObject {
     @Published var currentLesson:ContentLesson?
     var currentLessonIndex = 0
     
+    //NavigationLinkSelection
+    @Published var selectedContent: Int?
     
     
     
