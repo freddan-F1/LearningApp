@@ -137,6 +137,7 @@ class LearningModel: ObservableObject {
         }
         else {
             currentQuestion = nil
+            currentQuestionIndex = 0
         }
         
     }

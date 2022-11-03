@@ -14,11 +14,10 @@ struct TestView: View {
     @State private var selectedAnsverIndex:Int?
     @State private var questionsCorrect = 0
     @State private var submitted = false
-    
     @State private var buttonText = "Submit"
     
     var body: some View {
-       
+        
         if model.currentQuestion != nil {
             
             VStack (spacing: 20){
@@ -72,6 +71,10 @@ struct TestView: View {
                     //If not submitted: Submit and show new text
                     if !submitted {
                         submitted = true
+                        //Check if answer is correct
+                        if selectedAnsverIndex == model.currentQuestion!.correctIndex {
+                            questionsCorrect += 1
+                        }
                         //If there are more questions, show next question, otherwize show results
                         if model.currentQuestionIndex + 1 < model.currentModule!.test.questions.count {
                             buttonText = "Next question"
@@ -82,15 +85,10 @@ struct TestView: View {
                     }
                     else {
                         //Submitted. Act on buttonText
-                        if buttonText == "Next question" {
                             model.NextQuestion()
                             //clear propertys
                             submitted = false
                             selectedAnsverIndex = nil
-                        }
-                        else {
-                            //show results
-                        }
                     }
                     
                     
@@ -104,18 +102,14 @@ struct TestView: View {
             }.navigationTitle("\(model.currentModule!.category) Test")
         }
         else {
-            ProgressView()
+            //go to results view. ProgressView is for bugfix
+            if model.currentModule != nil {
+                ResultsView(numCorrectQuestions: questionsCorrect)
+            }
+            else {
+                ProgressView()
+            }
         }
-       
-        
-        //Check if there is a question
-        
-        //Show current question
-        
-        //Show answers
-        
-        //Button to display submit and then next question. At end show result and then back to root
-        
     }
 }
 
