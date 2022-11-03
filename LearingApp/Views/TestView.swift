@@ -29,7 +29,7 @@ struct TestView: View {
                 
                 //Answer options
                 ScrollView {
-                    VStack(spacing: 10) {
+                    VStack(spacing:10) {
                         ForEach(0..<model.currentQuestion!.answers.count, id: \.self) { index in
                             
                             Button {
@@ -40,41 +40,64 @@ struct TestView: View {
                                     //not submitted color gray if selected, otherwise white
                                     if !submitted {
                                         RectangleCard(color: index == selectedAnsverIndex ? .gray : .white).frame(height: 48)
+                                        Text(model.currentQuestion!.answers[index])
                                     }
                                     else {
                                         //submitted and selected. Green if right, red if wrong
                                         if index == selectedAnsverIndex {
                                             RectangleCard(color: selectedAnsverIndex == model.currentQuestion!.correctIndex ? .green : .red).frame(height: 48)
+                                            Text(model.currentQuestion!.answers[index]).foregroundColor(.white)
                                         }
                                         else {
                                             //submitted and not selected. Green if right, white if wrong
-                                            RectangleCard(color: index == model.currentQuestion!.correctIndex ? .green : .white).frame(height: 48)
+                                            if index == model.currentQuestion!.correctIndex {
+                                                RectangleCard(color:.green).frame(height: 48)
+                                                Text(model.currentQuestion!.answers[index]).foregroundColor(.white)
+                                            }
+                                            else {
+                                                RectangleCard(color:.white).frame(height: 48)
+                                                Text(model.currentQuestion!.answers[index])
+                                            }
+                                            
                                         }
                                         
                                     }
-                                    Text(model.currentQuestion!.answers[index])
-                                }.padding()
+                                }.padding(.horizontal).font(.headline)
                             }
                             .disabled(submitted)
                         }
                     }.font(.headline)
                 }
                 Button {
-                    
-                    submitted = true
-                    //Check if answer is correct. Add to questionscorrect
-                    if selectedAnsverIndex == model.currentQuestion!.correctIndex {
-                        questionsCorrect += 1
+                    //If not submitted: Submit and show new text
+                    if !submitted {
+                        submitted = true
+                        //If there are more questions, show next question, otherwize show results
+                        if model.currentQuestionIndex + 1 < model.currentModule!.test.questions.count {
+                            buttonText = "Next question"
+                        }
+                        else {
+                            buttonText = "Show results"
+                        }
                     }
-                    if submitted {
-                        buttonText = "Next Question"
+                    else {
+                        //Submitted. Act on buttonText
+                        if buttonText == "Next question" {
+                            model.NextQuestion()
+                            //clear propertys
+                            submitted = false
+                            selectedAnsverIndex = nil
+                        }
+                        else {
+                            //show results
+                        }
                     }
                     
                     
                 } label: {
                     ZStack {
                         RectangleCard(color: .green).frame(height:48)
-                        Text(buttonText)
+                        Text(buttonText).foregroundColor(.white).bold().font(.headline)
                     }.padding()
                 }
                 .disabled( selectedAnsverIndex == nil ? true : false)

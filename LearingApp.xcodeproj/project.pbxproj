@@ -24,6 +24,7 @@
 		8FACDC912911BE33007F075D /* CodeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FACDC902911BE33007F075D /* CodeTextView.swift */; };
 		8FACDCCD2912B2F2007F075D /* RectangleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FACDCCC2912B2F2007F075D /* RectangleCard.swift */; };
 		8FACDCEB291321F2007F075D /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FACDCEA291321F2007F075D /* TestView.swift */; };
+		8FACDCED2913C1CD007F075D /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FACDCEC2913C1CD007F075D /* ResultsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		8FACDC902911BE33007F075D /* CodeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeTextView.swift; sourceTree = "<group>"; };
 		8FACDCCC2912B2F2007F075D /* RectangleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleCard.swift; sourceTree = "<group>"; };
 		8FACDCEA291321F2007F075D /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		8FACDCEC2913C1CD007F075D /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 				8FACDC902911BE33007F075D /* CodeTextView.swift */,
 				8FACDCCC2912B2F2007F075D /* RectangleCard.swift */,
 				8FACDCEA291321F2007F075D /* TestView.swift */,
+				8FACDCEC2913C1CD007F075D /* ResultsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 			files = (
 				8FACDCEB291321F2007F075D /* TestView.swift in Sources */,
 				8F75B618290E7FC0001353A3 /* HomeView.swift in Sources */,
+				8FACDCED2913C1CD007F075D /* ResultsView.swift in Sources */,
 				8FACDC47290EEF55007F075D /* RowHomeView.swift in Sources */,
 				8FACDC4B290F21D6007F075D /* RowContentView.swift in Sources */,
 				8FACDC49290F12E4007F075D /* ContentView.swift in Sources */,

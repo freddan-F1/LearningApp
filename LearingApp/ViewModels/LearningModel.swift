@@ -132,6 +132,8 @@ class LearningModel: ObservableObject {
         currentQuestionIndex += 1
         if currentQuestionIndex < currentModule!.test.questions.count {
             currentQuestion = currentModule!.test.questions[currentQuestionIndex]
+            //set codeText to question text
+            codeText = AddStyling(htmlString: currentQuestion!.content)
         }
         else {
             currentQuestion = nil
