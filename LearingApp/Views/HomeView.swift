@@ -33,8 +33,21 @@ struct HomeView: View {
                                 
                             })
                             
-                            //ModuleTestCard
-                            RowHomeView(image: module.test.image, title: module.category + " Test", description: module.test.description, count: "\(module.test.questions.count) questions", time: module.test.time)
+                            NavigationLink(tag: module.id, selection: $model.selectedTest) {
+                                TestView().onAppear(perform: {
+                                    model.BeginQuestion(moduleId: module.id)})
+                                
+                                
+                            } label: {
+                                //ModuleTestCard
+                                RowHomeView(image: module.test.image, title: module.category + " Test", description: module.test.description, count: "\(module.test.questions.count) questions", time: module.test.time)
+                            }
+                            
+                            NavigationLink(destination: EmptyView() ) {
+                                EmptyView()
+                            }
+
+                            
                         }
                     }
                     

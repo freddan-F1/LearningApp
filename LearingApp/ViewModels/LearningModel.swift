@@ -14,7 +14,7 @@ class LearningModel: ObservableObject {
     @Published var modules = [LearningModule]()
     var styleData:Data?
     //Lesson details
-    @Published var lessonDescription = NSAttributedString()
+    @Published var codeText = NSAttributedString()
     
     //Navigation control variables
     @Published var currentModule:LearningModule?
@@ -23,8 +23,13 @@ class LearningModel: ObservableObject {
     @Published var currentLesson:ContentLesson?
     var currentLessonIndex = 0
     
+    @Published var currentQuestion:TestQuestion?
+    var currentQuestionIndex = 0
+    
     //NavigationLinkSelection
     @Published var selectedContent: Int?
+    @Published var selectedTest: Int?
+    
     
     
     
@@ -74,7 +79,7 @@ class LearningModel: ObservableObject {
         currentModule = modules[currentModuleIndex]
     }
 
-    func setCurrentLesson( lessonId:Int) {
+    func beginLesson( lessonId:Int) {
         
         //Check if lesson with lessonId exists
         if lessonId < currentModule!.content.lessons.count {
@@ -84,7 +89,7 @@ class LearningModel: ObservableObject {
             currentLessonIndex = 0
         }
         currentLesson = currentModule!.content.lessons[currentLessonIndex]
-        lessonDescription = AddStyling(htmlString: currentLesson!.explanation)
+        codeText = AddStyling(htmlString: currentLesson!.explanation)
     }
     
     func HasNextLesson() -> Bool {
@@ -97,12 +102,41 @@ class LearningModel: ObservableObject {
             
             //Set the next lesson property
             currentLesson = currentModule!.content.lessons[currentLessonIndex]
-            lessonDescription = AddStyling(htmlString: currentLesson!.explanation)
+            codeText = AddStyling(htmlString: currentLesson!.explanation)
         }
         else {
             currentLessonIndex = 0
             currentLesson = nil
         }
+    }
+    
+    func BeginQuestion(moduleId: Int) {
+        
+        self.setCurrentModule(moduleId: moduleId)
+        
+        if currentModule != nil {
+            if !currentModule!.test.questions.isEmpty {
+                //set current Question
+                currentQuestion = currentModule!.test.questions[currentQuestionIndex]
+                //set codeText to question text
+                codeText = AddStyling(htmlString: currentQuestion!.content)
+            }
+        }
+        else {
+            currentQuestion = nil
+        }
+    }
+    
+    func NextQuestion() {
+        
+        currentQuestionIndex += 1
+        if currentQuestionIndex < currentModule!.test.questions.count {
+            currentQuestion = currentModule!.test.questions[currentQuestionIndex]
+        }
+        else {
+            currentQuestion = nil
+        }
+        
     }
     
     //MARK: methods for making attributed string

@@ -22,7 +22,7 @@ struct ContentView: View {
                     ForEach(0..<model.currentModule!.content.lessons.count, id: \.self) {index in
                        NavigationLink(destination: {
                            ContentLessonView().onAppear(perform: {
-                               model.setCurrentLesson(lessonId: index)
+                               model.beginLesson(lessonId: index)
                            })
                     
                        }, label: {
